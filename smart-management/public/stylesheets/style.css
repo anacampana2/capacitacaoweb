@@ -7039,6 +7039,11 @@ h1 {
   margin-top: 8%; }
 
 .texto-centro {
-  text-align: center; }
+  text-align: center;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+ }
+
+
 
 /*# sourceMappingURL=style.css.map */
