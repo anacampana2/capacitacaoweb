@@ -42,6 +42,25 @@ const userSchema = new mongoose.Schema({
         });
       });
     }
+    static update(id,user){
+      return new Promise((resolve, reject) => {
+        UserModel.findByIdAndUpdate(id, user).then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    }
+
+    static delete(id) {
+      return new Promise((resolve, reject) => {
+        UserModel.findByIdAndDelete({_id: id}).then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    }
  }
 
 module.exports = User;
