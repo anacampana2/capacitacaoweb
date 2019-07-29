@@ -1,6 +1,8 @@
 const express = require('express');
 const firebase = require('firebase');
 const router = express.Router();
+const mongoose =  require('mongoose');
+const User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,14 +22,27 @@ router.post('/login', function(req, res, next) {
   });
 });
 router.get('/cadastro', function(req, res, next) {
-  res.render('cadastro', { title: 'Cadastro' });
+      User.getById("5d3ef2091ff5137814f64a48").then((id) => {
+          console.log(id);
+            res.render('cadastro', { title: 'Cadastro' });
+        }).catch((err) =>{
+          console.log(error);
+          res.render('cadastro', { title: 'Cadastro' });
+        })
+
+
 });
 router.post('/cadastro', function(req, res, next) {
   const user = req.body.user;
   console.log(user);
   firebase.auth().createUserWithEmailAndPassword(user.email,user.password).then((userF)=>{
-    res.redirect('/login');
-    console.log(userF);
+    User.create(user).then((id) => {
+      console.log(id);
+      res.redirect('/login');
+    }).catch((error) =>{
+      console.log(error);
+        res.redirect('/');
+    });
   }).catch((error)=>{
     res.redirect('/login');
     console.log("error");
